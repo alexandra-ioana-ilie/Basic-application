@@ -1,0 +1,51 @@
+<html lang="en">
+    <head>
+        <title>display</title>
+    </head>
+    <body bgcolor="#cce6ff">
+ <img src="https://www.indivstock.com/static21/preview2/stoc-229022.jpg" width=100% height="20">
+      
+                <h1>Actions</h1>
+                <ul>
+                    <li><a href="{{url_for('index')}}">Home</a></li>
+                    <li class="active"><a href="{{url_for('display')}}">Display</a></li>
+                    <li><a href="{{url_for('update')}}">Update</a></li>
+                    <li><a href="{{url_for('logout')}}">Log out</a></li>
+                </ul>
+            <div class="content" align="center">
+                <div class="topbar">
+                    <h2>Welcome! Here you can see your account information. You can change them at any time using Update </h2>                        
+                </div>  </br>
+                <div class="contentbar">
+                    <h1>Your Details</h1> <br>
+                        <img src="https://www.pngfind.com/pngs/m/93-938050_png-file-transparent-white-user-icon-png-download.png"  width="100" height="100">
+                        <div class="border">
+                            <table class="worddark"></br>
+                                <tr>
+                                    <td>Username:</td>
+                                    <td>{{ account[1] }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Password:</td>
+                                    <td>{{ account[2] }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Email ID:</td>
+                                    <td>{{ account[3] }}</td>
+                                
+                                <tr>
+                                    <td>City:</td>
+                                    <td>{{ account[4] }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Country:</td>
+                                    <td>{{ account[5] }}</td>
+                                </tr>                            
+                            </table>
+                        </div>                                           
+                </div>
+                  
+            </div>
+        </div>
+    </body>
+</html>
