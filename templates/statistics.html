@@ -1,0 +1,43 @@
+<html lang="en">
+    <head>
+        <title>display</title>
+    </head>
+    <body bgcolor="#cce6ff">
+ <img src="https://www.indivstock.com/static21/preview2/stoc-229022.jpg" width=100% height="20">
+      
+                <h1>Statistics</h1>
+                <ul>
+                    <li><a href="{{url_for('index')}}">Home</a></li>
+                    <li ><a href="{{url_for('display')}}">Display</a></li>
+                    <li class="active"><a href="{{url_for('statistics')}}">Statistics</a></li>
+                    <li><a href="{{url_for('update')}}">Update</a></li>
+                    <li><a href="{{url_for('logout')}}">Log out</a></li>
+                </ul>
+            <div class="content" align="center">
+                <div class="topbar">
+                    <h2>These are statistics about users that have joined the website.</h2>                        
+                </div>  </br>
+                <div class="contentbar">
+                    <h1>Site statistics</h1> <br>
+                        <div class="border">
+                            <table class="worddark"></br>
+                                <tr>
+                                    <td>Total registered accounts:</td>
+                                    <td>{{ statistics['countAccounts'] }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Accounts that have joined today:</td>
+                                    <td>{{ statistics['joinedToday'] }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Latest user that visited the website:</td>
+                                    <td>{{ statistics['latestVisit'] }}</td>
+                                </tr>
+                            </table>
+                        </div>                                           
+                </div>
+                  
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,49 @@
+<html lang="en">
+    <head>
+        <title>index</title>
+    </head>
+  
+    <body bgcolor="#cce6ff">
+                <img src="https://www.indivstock.com/static21/preview2/stoc-229022.jpg" width=100% height="20">
+                <h1>Actions</h1>
+                <ul>
+                    <li class="active"><a href="{{url_for('index')}}">Home</a></li>
+                    <li><a href="{{url_for('display')}}">Display</a></li>
+                    <li><a href="{{url_for('statistics')}}">Statistics</a></li>
+                    <li><a href="{{url_for('update')}}">Update</a></li>
+                    <li><a href="{{url_for('logout')}}">Log out</a></li>
+                </ul> 
+            </div>
+            <div class="content" align="center">
+                <div class="topbar">
+                    <h2>Welcome! This application aims to manage your current account information.</h2>
+                    <img src="https://cdn-icons-png.flaticon.com/512/2361/2361718.png"  width="120" height="120">
+
+                    <h3>Here are some tips on securing your online account</h3><br>
+                    <h3>1.Choose Strong Passwords</h3>
+                    <p>Passwords are one of the biggest weak spots in the whole Internet security structure, but there's currently no way around them. 
+And the problem with passwords is that people tend to choose ey
+asy ones to remember (such as "password" and "123456"), which are also easy for cyber thieves to guess. Select strong passwords that are harder for cybercriminals to demystify. Password manager software can help you to manage multiple passwords so that you don't forget them.
+ A strong password is one that is unique and complex—at least 15 characters long, mixing letters, numbers and special characters.<h3><br> 
+                    <h3>2.Keep Personal Information Professional and Limited</h3><br>
+                    <p>Potential employers or customers don't need to know your personal relationship status or your home address. 
+They do need to know about your expertise and professional background, and how to get in touch with you. You wouldn't hand purely personal information out to strangers individually—don't hand it out to millions of people online.</h3><br>
+                    <br><h3>3.Make Sure Your Internet Connection is Secure. Use a Secure VPN Connection</h3><br>
+                    <p>
+When you go online in a public place, for example by using a public Wi-Fi connection, PCMag notes you have no direct control over its security. Corporate cybersecurity experts worry about "endpoints"—the places where a private network connects to the outside world. Your vulnerable endpoint is your local Internet connection. Make sure your device is secure, and when in doubt, wait for a better time (i.e., until you're able to connect to a secure Wi-Fi network) before providing information such as your bank account number.
+
+To further improve your Internet browsing safety, use secure VPN connection (virtual private network). VPN enables you to have a secure connection between your device and an Internet server that no one can monitor or access the data that you’re exchanging. Read more about What is VPN </h3><br>
+                   <br><a href="https://usa.kaspersky.com/resource-center/preemptive-safety/top-10-internet-safety-rules-and-what-not-to-do-online"> Information source </a>
+   
+                </div></br></br>
+                <div class="contentbar">
+                     <div class="msg">{{ msg }}</div>
+                </div>  
+          <fotter class="footer">        
+          <p>&copy; ALEXANDRA ILIE</p>
+          </footer>
+
+    </body>
+</html>
+
+

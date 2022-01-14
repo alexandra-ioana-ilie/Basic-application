@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import re
 import mysql.connector
+from datetime import datetime
 
 mydb= mysql.connector.connect(
      host= "localhost",
@@ -38,6 +39,11 @@ def login():
             session['id'] = account[0]
             session['username'] = account[1]
             msg = 'Logged in successfully !'
+
+            dateLogin = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            mycursor.execute("UPDATE accounts SET lastVisit = %s WHERE username = %s", (dateLogin, username))
+            mydb.commit()
+
             return render_template('index.html', msg = msg)
         else:
             msg = 'Incorrect username / password !'
@@ -69,7 +75,8 @@ def register():
         elif not re.match(r'[A-Za-z0-9]+', username):
             msg = 'name must contain only characters and numbers !'
         else:
-            mycursor.execute("INSERT INTO accounts (username, password, email, city, country) VALUES (%s, %s, %s, %s, %s)", (username, password, email, city, country))
+            dateREgistered = datetime.now().strftime('%Y-%m-%d')
+            mycursor.execute("INSERT INTO accounts (username, password, email, city, country, joined) VALUES (%s, %s, %s, %s, %s, %s)", (username, password, email, city, country, dateJoined))
             mydb.commit()
             msg = 'You have successfully registered !'
     elif request.method == 'POST':
@@ -87,7 +94,8 @@ def index():
 @app.route("/display")
 def display():
     if 'loggedin' in session:
-        mycursor.execute('SELECT * FROM accounts WHERE id = %s', (session['id'], ))
+        # mycursor.execute('SELECT * FROM accounts WHERE id = %s', (session['id'], ))
+        mycursor.execute('SELECT * FROM accounts WHERE username = %s', ('rzvcs', ))
         account =mycursor.fetchone()    
         return render_template("display.html", account = account)
     return redirect(url_for('login'))
@@ -117,6 +125,31 @@ def update():
         elif request.method == 'POST':
             msg = 'Please fill out the form !'
         return render_template("update.html", msg = msg)
+    return redirect(url_for('login'))
+
+@app.route("/statistics")
+def statistics():
+    if 'loggedin' in session:
+        statistics = {
+                'countAccounts':0, 
+                'joinedToday': 0, 
+                'latestVisit': 0 
+            }
+        
+        dateToday = datetime.today().strftime('%Y-%m-%d')
+
+        mycursor.execute('SELECT COUNT(username) from ACCOUNTS')
+        statistics['countAccounts'] = mycursor.fetchone()[0]
+        
+        mycursor.execute('SELECT COUNT(username) from ACCOUNTS WHERE joined = %s', (dateToday,))
+        statistics['joinedToday'] = mycursor.fetchone()[0]
+        
+        mycursor.execute('SELECT @lastVisit:=MIN(lastVisit) FROM accounts')
+        mycursor.fetchone()
+        mycursor.execute('SELECT username from ACCOUNTS WHERE lastVisit = @lastVisit')
+        statistics['latestVisit'] = mycursor.fetchone()[0]
+        
+        return render_template("statistics.html", statistics = statistics)
     return redirect(url_for('login'))
   
 if __name__ == "__main__":
