@@ -75,8 +75,9 @@ def register():
         elif not re.match(r'[A-Za-z0-9]+', username):
             msg = 'name must contain only characters and numbers !'
         else:
-            dateREgistered = datetime.now().strftime('%Y-%m-%d')
-            mycursor.execute("INSERT INTO accounts (username, password, email, city, country, joined) VALUES (%s, %s, %s, %s, %s, %s)", (username, password, email, city, country, dateJoined))
+            dateJoined = datetime.now().strftime('%Y-%m-%d')
+            lastVisit = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            mycursor.execute("INSERT INTO accounts (username, password, email, city, country, joined, lastVisit) VALUES (%s, %s, %s, %s, %s, %s, %s)", (username, password, email, city, country, dateJoined, lastVisit))
             mydb.commit()
             msg = 'You have successfully registered !'
     elif request.method == 'POST':
@@ -144,7 +145,7 @@ def statistics():
         mycursor.execute('SELECT COUNT(username) from ACCOUNTS WHERE joined = %s', (dateToday,))
         statistics['joinedToday'] = mycursor.fetchone()[0]
         
-        mycursor.execute('SELECT @lastVisit:=MIN(lastVisit) FROM accounts')
+        mycursor.execute('SELECT @lastVisit:=MAX(lastVisit) FROM accounts')
         mycursor.fetchone()
         mycursor.execute('SELECT username from ACCOUNTS WHERE lastVisit = @lastVisit')
         statistics['latestVisit'] = mycursor.fetchone()[0]
